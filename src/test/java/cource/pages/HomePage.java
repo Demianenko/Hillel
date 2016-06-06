@@ -11,9 +11,9 @@ import org.openqa.selenium.support.How;
  */
 public class HomePage extends Page {
 
-  @FindBy(how = How.TAG_NAME, using = "h1")
+  @FindBy(how = How.ID, using = "lst-ib")
   @CacheLookup
-  public WebElement header;
+  public WebElement input;
 
   public HomePage(WebDriver webDriver) {
     super(webDriver);
