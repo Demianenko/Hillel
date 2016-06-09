@@ -28,7 +28,7 @@ public class SampleTestNgTest extends TestNgTestBase {
     driver.get(baseUrl);
     homepage.login.sendKeys("demyanenko.s.k");
     homepage.nexButton.click();
-    homepage.password.sendKeys("erlond2narod.ru");
+    homepage.password.sendKeys("===");
     homepage.sinGinButton.click();
   }
   @Test
