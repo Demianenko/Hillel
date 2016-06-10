@@ -38,19 +38,19 @@ public class SampleTestNgTest extends TestNgTestBase {
         homepage.sinGinButton.click();
     }
 
-    @Test( enabled = false)
+    @Test( enabled = true)
     public void settings() {
         homepage.settings.click();
         Assert.assertEquals(homepage.listOfSettings.findElements(By.xpath("//*[@id=':2t']//*[" + selectorMap.get("comfort") +
                 " or " + selectorMap.get("cosy") + " or " + selectorMap.get("compact") + " or " + selectorMap.get("conf") +
                 " or " + selectorMap.get("settings") + " or " + selectorMap.get("themes") + " or " + selectorMap.get("help") + "]")).size(), 7);
     }
-    @Test ( enabled = false)
+    @Test ( enabled = true)
     public void apps() {
         homepage.apps.click();
         Assert.assertEquals(homepage.apps.findElements(By.xpath("//*[@class=\"gb_O\"]")).size(),15);
     }
-    @Test ( enabled = false)
+    @Test ( enabled = true)
     public void numbers() {
         Assert.assertEquals(homepage.firsrNumber.getText(),"1");
         Assert.assertEquals(homepage.secondNumber.getText(),"50");
