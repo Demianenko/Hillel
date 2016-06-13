@@ -28,7 +28,7 @@ public class HomePage extends Page {
     @CacheLookup
     public WebElement settings;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\":2t\"]")
+    @FindBy(how = How.XPATH, using = "//*[@id=\":2t\"]/div[\"SK AX\"]")
     @CacheLookup
     public WebElement listOfSettings;
 

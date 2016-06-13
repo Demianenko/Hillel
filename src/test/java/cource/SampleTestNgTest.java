@@ -2,62 +2,73 @@ package cource;
 
 import cource.pages.HomePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SampleTestNgTest extends TestNgTestBase {
     private HomePage homepage;
-    Map<String,String> selectorMap = new HashMap<String, String>();
-
-
-
     @BeforeMethod
     public void initPageObjects() throws InterruptedException {
         homepage = PageFactory.initElements(driver, HomePage.class);
-        selectorMap.put("comfort","@id=':2o'");
-        selectorMap.put("cosy","@id=':2p'");
-        selectorMap.put("compact","@id=':2q'");
-        selectorMap.put("conf","@id='101:settings'");
-        selectorMap.put("settings","@id='ms'");
-        selectorMap.put("themes","@id='pbwc'");
-        selectorMap.put("help","@id=':2r'");
-
         driver.get(baseUrl);
         Thread.sleep(2000);
         homepage.login.sendKeys("demyanenko.s.k");
         Thread.sleep(2000);
         homepage.nexButton.click();
         Thread.sleep(2000);
-        homepage.password.sendKeys("nonononono");
+        homepage.password.sendKeys(" ");
         Thread.sleep(2000);
         homepage.sinGinButton.click();
     }
 
-    @Test( enabled = true)
-    public void settings() {
+    @Test( enabled = false)
+    public void settings() throws InterruptedException {
         homepage.settings.click();
-        Assert.assertEquals(homepage.listOfSettings.findElements(By.xpath("//*[@id=':2t']//*[" + selectorMap.get("comfort") +
-                " or " + selectorMap.get("cosy") + " or " + selectorMap.get("compact") + " or " + selectorMap.get("conf") +
-                " or " + selectorMap.get("settings") + " or " + selectorMap.get("themes") + " or " + selectorMap.get("help") + "]")).size(), 7);
+        String xpath = "//*[@id=\":2t\"]/div[\"SK AX\"]/*[contains(@class,\'J-N\') and not(contains(@aria-hidden, \'true\'))]";
+        List<WebElement> elemList =  homepage.listOfSettings.findElements(By.xpath(xpath));
+        Assert.assertEquals(elemList.size(),7);
+        for(WebElement e: elemList) {
+            homepage.moveToElement(e);
+            Thread.sleep(1000);
+            Assert.assertTrue(e.getAttribute("class").contains("J-N-JT"));
+        }
     }
     @Test ( enabled = true)
-    public void apps() {
+    public void apps() throws InterruptedException {
         homepage.apps.click();
-        Assert.assertEquals(homepage.apps.findElements(By.xpath("//*[@class=\"gb_O\"]")).size(),15);
+        String xpath = "//*[@class='gb_O']/..";
+        List<WebElement> elemList =  homepage.apps.findElements(By.xpath(xpath));
+        Assert.assertEquals(homepage.apps.findElements(By.xpath(xpath)).size(),15);
+        for(WebElement e: elemList) {
+            homepage.moveToElement(e);
+            System.out.print(e.getCssValue("border")+"--");
+            Thread.sleep(1000);
+            System.out.println(e.getCssValue("border"));
+            //Assert.assertTrue(e.getAttribute("class").contains("J-N-JT"));
+        }
     }
-    @Test ( enabled = true)
+    @Test ( enabled = false)
     public void numbers() {
         Assert.assertEquals(homepage.firsrNumber.getText(),"1");
         Assert.assertEquals(homepage.secondNumber.getText(),"50");
     }
-    @Test( enabled = true)
+    @Test( enabled = false)
     public void table() {
         Assert.assertEquals(homepage.mailTable.findElements(By.xpath("//*[@class=\"zA yO\"]")).size(),50);
+    }
+    @AfterMethod
+    public void quit(){
+        driver.quit();
     }
 
 }
